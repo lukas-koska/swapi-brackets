@@ -1,0 +1,68 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: sammy
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: karmen
+    container_name: swapi-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - lukybrackets
+
+  composer:
+    restart: 'no'
+    image: composer/composer
+    command: install
+    volumes:
+      - .:/app
+
+  db:
+    image: mariadb:10.6
+    container_name: swapi-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: brackets
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_PASSWORD: apppass
+      MYSQL_USER: appuser
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - lukybrackets
+
+  nginx:
+    image: nginx:alpine
+    container_name: swapi-nginx
+    restart: unless-stopped
+    ports:
+      - 8082:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - lukybrackets
+    depends_on:
+      - adminer
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    links:
+      - db
+    networks:
+      - lukybrackets
+
+
+networks:
+  lukybrackets:
+    driver: bridge

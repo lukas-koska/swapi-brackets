@@ -1,0 +1,2 @@
+require('./bootstrap');
+$(document).foundation();
