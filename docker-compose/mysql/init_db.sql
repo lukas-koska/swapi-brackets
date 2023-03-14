@@ -7,22 +7,7 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
-DROP TABLE IF EXISTS `about_me`;
-CREATE TABLE `about_me` (
-                            `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-                            `created_at` timestamp NULL DEFAULT NULL,
-                            `updated_at` timestamp NULL DEFAULT NULL,
-                            `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-                            `perex` text COLLATE utf8mb4_unicode_ci NOT NULL,
-                            `used` tinyint(1) NOT NULL,
-                            `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
-                            `language` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-                            PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-DROP TABLE IF EXISTS `failed_jobs`;
-CREATE TABLE `failed_jobs` (
+CREATE TABLE IF NOT EXISTS `failed_jobs` (
                                `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                                `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                                `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -35,21 +20,6 @@ CREATE TABLE `failed_jobs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-DROP TABLE IF EXISTS `management`;
-CREATE TABLE `management` (
-                              `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-                              `created_at` timestamp NULL DEFAULT NULL,
-                              `updated_at` timestamp NULL DEFAULT NULL,
-                              `firstName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-                              `lastName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-                              `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-                              `phone` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-                              `used` tinyint(1) NOT NULL DEFAULT 1,
-                              `language` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-                              PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
                               `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -58,26 +28,15 @@ CREATE TABLE `migrations` (
                               PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `news`;
-CREATE TABLE `news` (
-                        `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-                        `created_at` timestamp NULL DEFAULT NULL,
-                        `updated_at` timestamp NULL DEFAULT NULL,
-                        `subtitle` varchar(255) COLLATE utf8mb4_unicode_ci NULL,
-                        `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-                        `date` datetime NULL,
-                        `text` text COLLATE utf8mb4_unicode_ci NULL,
-                        `link` varchar(255) COLLATE utf8mb4_unicode_ci NULL,
-                        `language` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-                        `due_date` datetime NULL,
-                        `color` varchar(100) COLLATE utf8mb4_unicode_ci NULL,
-                        PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+                                                          (1,	'2014_10_12_000000_create_users_table',	1),
+                                                          (2,	'2014_10_12_100000_create_password_resets_table',	1),
+                                                          (3,	'2019_08_19_000000_create_failed_jobs_table',	1),
+                                                          (4,	'2019_12_14_000001_create_personal_access_tokens_table',	1),
+                                                          (5,	'2023_03_14_081730_create_planets_table',	1);
 
 
-DROP TABLE IF EXISTS `password_resets`;
-CREATE TABLE `password_resets` (
+CREATE TABLE IF NOT EXISTS `password_resets` (
                                    `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                                    `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                                    `created_at` timestamp NULL DEFAULT NULL,
@@ -85,8 +44,7 @@ CREATE TABLE `password_resets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-DROP TABLE IF EXISTS `personal_access_tokens`;
-CREATE TABLE `personal_access_tokens` (
+CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
                                           `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                                           `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                                           `tokenable_id` bigint(20) unsigned NOT NULL,
@@ -102,8 +60,26 @@ CREATE TABLE `personal_access_tokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `planets` (
+                           `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                           `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `diameter` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `rotation_period` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `orbital_period` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `gravity` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `population` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `climate` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `terrain` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `surface_water` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `created` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `edited` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `created_at` timestamp NULL DEFAULT NULL,
+                           `updated_at` timestamp NULL DEFAULT NULL,
+                           PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `users` (
                          `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                          `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                          `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -117,14 +93,4 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
--- 2023-03-08 11:20:45
-
--- 2023-03-07 12:35:22
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-    (1,	'admin',	'lukas.koska@gmail.com',	NULL,	'$2y$10$gc14Q3uNxF8ksXzNpNg89OjxV6h8KS4cxdyFsleonE3smVC/BDH5K',	'5Th9yohqn1QTCuQWn01Sfc4yZnf9QnYaE8BrsEEPNdB6vu15sOY4Gw3qweGx',	'2023-03-08 06:08:05',	'2023-03-08 06:08:05');
-
-INSERT INTO `news` (`id`, `created_at`, `updated_at`, `subtitle`, `title`, `date`, `text`, `link`, `language`, `due_date`, `color`) VALUES
-    (1,	'2023-03-08 11:44:02',	'2023-03-08 11:46:47',	'koncert',	'Koncert Tornaľa',	'2023-04-28 12:43:00',	'test',	'Read more',	'sk',	NULL,	NULL);
-
-INSERT INTO `news` (`id`, `created_at`, `updated_at`, `subtitle`, `title`, `date`, `text`, `link`, `language`, `due_date`, `color`) VALUES
-    (2,	'2023-03-08 11:44:02',	'2023-03-08 11:46:47',	'28.04.2023',	'Koncert Tornaľa - TEST',	'2023-04-28 12:43:00',	'test',	'Vstupenky',	'sk',	NULL,	NULL);
+-- 2023-03-14 08:59:24

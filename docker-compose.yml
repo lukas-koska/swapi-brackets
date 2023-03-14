@@ -56,7 +56,7 @@ services:
   adminer:
     image: adminer
     ports:
-      - 8080:8080
+      - 8083:8080
     links:
       - db
     networks:
