@@ -14,19 +14,19 @@ class CreatePlanetsTable extends Migration
     public function up()
     {
         Schema::create('planets', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name');
-            $table->string('diameter');
-            $table->string('rotation_period');
-            $table->string('orbital_period');
-            $table->string('gravity');
-            $table->string('population');
-            $table->string('climate');
-            $table->string('terrain');
-            $table->string('surface_water');
-            $table->string('url');
-            $table->string('created');
-            $table->string('edited');
+            $table->string('diameter')->nullable();
+            $table->string('rotation_period')->nullable();
+            $table->string('orbital_period')->nullable();
+            $table->string('gravity')->nullable();
+            $table->string('population')->nullable();
+            $table->string('climate')->nullable();
+            $table->string('terrain')->nullable();
+            $table->string('surface_water')->nullable();
+            $table->string('url')->nullable();
+            $table->string('created')->nullable();
+            $table->string('edited')->nullable();
             $table->timestamps();
         });
     }

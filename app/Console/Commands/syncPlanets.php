@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\PlanetsRepository;
 use App\Services\SwapiApiService;
 use Illuminate\Console\Command;
 
@@ -26,7 +27,10 @@ class syncPlanets extends Command
      *
      * @return void
      */
-    public function __construct(private SwapiApiService $swapiApiService)
+    public function __construct(
+        private SwapiApiService $swapiApiService,
+        private PlanetsRepository $planetsRepository,
+    )
     {
         parent::__construct();
     }
@@ -47,10 +51,13 @@ class syncPlanets extends Command
         }
 
         $content = $response->body();
+        $contentArray = json_decode($content, true);
+
+        if (array_key_exists('results', $contentArray)) {
+            $this->planetsRepository->syncPlanets($contentArray['results']);
+        }
 
 
-        dd($content);
-
-        return 0;
+        return 1;
     }
 }
