@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 /**
- * Class NewsRepository.
+ * Class PlanetsRepository.
  */
-class NewsRepository extends BaseRepository
+class PlanetsRepository extends BaseRepository
 {
     /**
      * @return string
@@ -19,6 +19,15 @@ class NewsRepository extends BaseRepository
     public function model()
     {
         return News::class;
+    }
+
+    /**
+     * @param array $planets
+     * @return bool
+     */
+    public function syncPlanets(array $planets) : bool
+    {
+        return true;
     }
 
     /**

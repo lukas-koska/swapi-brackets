@@ -3,11 +3,11 @@ services:
   app:
     build:
       args:
-        user: sammy
+        user: luky
         uid: 1000
       context: ./
       dockerfile: Dockerfile
-    image: karmen
+    image: brackets
     container_name: swapi-app
     restart: unless-stopped
     working_dir: /var/www/
