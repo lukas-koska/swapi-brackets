@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\PlanetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix('{language}')
+    ->where(['language' => '[a-zA-Z]{2}'])
+    ->middleware('setLanguage')
+    ->group(function () {
+        Route::get('/', [HomepageController::class, 'show']);
+        Route::get('/planets', [PlanetController::class, 'show']);
+    });
+
 Route::get('/', function () {
+    return redirect(config('app.available_languages')[0]);
+});
+
+Route::get('/welcome', function () {
     return view('welcome');
 });

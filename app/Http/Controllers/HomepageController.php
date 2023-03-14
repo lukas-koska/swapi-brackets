@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\NewsRepository;
+use App\Repositories\PlanetsRepository;
 use Illuminate\View\View;
 
 class HomepageController extends Controller
 {
-    protected NewsRepository $newsRepository;
-
     /**
      * Create a new controller instance.
      */
     public function __construct(
-        NewsRepository $newsRepository
+        protected PlanetsRepository $planetsRepository
     ) {
-        $this->newsRepository = $newsRepository;
+        // Nothing have to be done here
     }
 
     /**
@@ -23,9 +21,8 @@ class HomepageController extends Controller
      */
     public function show(): View
     {
-        $this->newsRepository->getTodayNews();
         return view('homepage', [
-            'news' => $this->newsRepository->getTodayNews()
+            'planetsCount' => $this->planetsRepository->getPlanetCounts()
         ]);
     }
 }

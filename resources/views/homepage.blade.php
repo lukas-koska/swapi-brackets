@@ -9,38 +9,88 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ asset('css/foundation.css') }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.5/css/foundation-float.min.css" integrity="sha512-COhcCg6IPtpBb4rDu3fJb+MOVP8vjJmoASF9jl8KoPQwQTlh3pKBE7FHPBPLnd3jV/ZJ77g+8haAFlNwtkOi1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="https://kit.fontawesome.com/2776f5b3c6.js" crossorigin="anonymous"></script>
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 200;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 84px;
+            }
+
+            .links > a {
+                color: #E63946;
+                padding: 0 25px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
     </head>
     <body @class('homepage')>
 
-    @include('navbar')
+    <section id="main-homapage" class="flex-center position-ref full-height">
+        <div @class(['row'])>
 
-    <section id="main-homapage" @class('homepage-main-image')>
-        <div @class('booking')>
-            <a @class(['button']) href="#">
-                {{ __('page.booking') }}
-            </a>
-            <div @class(['special-booking-line'])></div>
+            <div @class(['col-12'])>
+                <h1 @class(['title'])>
+                    Planets Explorer
+                </h1>
+            </div>
+            <div @class(['col-12', 'links', 'content'])>
+                <a @class(['button', 'm-b-md']) href="/{{ app()->getLocale() }}/planets">
+                    {{ __('planets.browse') }}
+                </a>
+            </div>
+            <div @class(['col-12', 'content'])>
+                {{ __('i.have') }} {{ $planetsCount }} {{ __('planets') }}
+            </div>
+
         </div>
-
-        <h1>
-            {!! __('homepage.headline') !!}
-        </h1>
     </section>
-
-    @include('news')
 
     @include('footer')
 
     <script src="{{ asset('js/vendor/jquery.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
-    <script src="{{ asset('js/vendor/what-input.js') }}"></script>
-    <script src="{{ asset('js/vendor/foundation.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/menu.js') }}"></script>
-    <script src="{{ asset('js/news.js') }}"></script>
     </body>
 </html>

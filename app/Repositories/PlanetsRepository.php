@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Planet;
 use DateTime;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
@@ -19,6 +20,25 @@ class PlanetsRepository extends BaseRepository
     public function model()
     {
         return Planet::class;
+    }
+
+
+    public function getPlanetCounts() : int
+    {
+        return Planet::all()->count();
+    }
+
+    /**
+     * @param array|null $filter
+     * @param int $page
+     * @return LengthAwarePaginator
+     */
+    public function filterPlanets(?array $filter, $page = 0) : LengthAwarePaginator
+    {
+        if ($filter === null || count($filter) === 0) {
+            return Planet::paginate(5);
+        }
+        //return [];
     }
 
     /**

@@ -1,15 +1,17 @@
 {
-  "menu" : "Menu",
-  "menu.close" : "Zavrieť",
-  "menu.events" : "Udalosti",
-  "menu.latest-releases" : "Latest Releases",
-  "menu.media" : "Médiá",
-  "menu.bio" : "Bio",
-  "menu.contact" : "Kontakt",
-
-  "title.homepage": "Speváčka Karmen Pál-Baláž",
-
-  "page.booking": "Booking",
-
-  "homepage.headline": "Karmen<br/><span>Pál-Baláž</span>"
+  "title.homepage": "Luky Koska <-> Brackets",
+  "title.planets": "Browse planets",
+  "planets.browse": "Browse planets",
+  "i.have": "I have",
+  "planet": "Planet",
+  "planets": "planets",
+  "diameter": "Diameter",
+  "rotation.period": "Rotation period",
+  "gravity": "Gravity",
+  "name": "Name",
+  "orbital.period": "Orbital period",
+  "population": "Population",
+  "climate": "Climate",
+  "terrain": "Terrain",
+  "surface.water": "Surface water"
 }
