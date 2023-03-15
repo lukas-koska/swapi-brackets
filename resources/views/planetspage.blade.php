@@ -88,7 +88,7 @@
                 margin-bottom: 8px;
             }
 
-            form input.input {
+            form input.input, select.select {
                 display: flex;
                 font-size: 16px;
                 border: 1px solid #F1FAEE;
@@ -132,15 +132,39 @@
                 <form method="get">
                     <div>
                         <label for="diameter">{{ __('diameter') }}</label>
-                        <input @class(['input']) name="diameter" id="diameter" type="number">
+                        <input
+                            @class(['input'])
+                            name="diameter"
+                            id="diameter"
+                            type="number"
+                            value="{{ array_key_exists('diameter', $fields) ? $fields['diameter'] : "" }}"
+                        >
                     </div>
                     <div>
                         <label for="rotation_period">{{ __('rotation.period') }}</label>
-                        <input @class(['input']) name="rotation_period" id="rotation_period" type="number">
+                        <input
+                            @class(['input'])
+                            name="rotation_period"
+                            id="rotation_period"
+                            type="number"
+                            value="{{ array_key_exists('rotation_period', $fields) ? $fields['rotation_period'] : "" }}"
+                        >
                     </div>
                     <div>
                         <label for="gravity">{{ __('gravity') }}</label>
-                        <input @class(['input']) name="gravity" id="gravity" type="number">
+                        <select @class(['select']) name="gravity" id="gravity">
+                            <option value=""></option>
+                            @foreach($gravities as $gravity)
+                                <option
+                                    value="{{ $gravity["gravity"] }}"
+                                    @if (array_key_exists('gravity', $fields)
+                                        && $gravity["gravity"] === $fields['gravity']
+                                    )
+                                        selected
+                                    @endif
+                                >{{ $gravity["gravity"] }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div @class(['links'])>
                         <button type="submit" @class(['button', 'm-b-md'])>

@@ -14,10 +14,10 @@ In case you do not want to use Docker
 
 ## Synchronize the list of all planets
 
-Run 
+Run command to initialize list of planets
 
 ```bash
-php artisan 
+php artisan syncPlanets:sync
 ```
 
 

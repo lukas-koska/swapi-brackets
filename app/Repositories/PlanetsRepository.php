@@ -3,9 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Planet;
-use DateTime;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 /**
@@ -35,10 +34,25 @@ class PlanetsRepository extends BaseRepository
      */
     public function filterPlanets(?array $filter, $page = 0) : LengthAwarePaginator
     {
-        if ($filter === null || count($filter) === 0) {
-            return Planet::paginate(5);
+        $query = Planet::orderBy('name');
+
+        if ($filter !== null && count($filter) > 0) {
+            foreach ($filter as $field => $data) {
+                $query = $this->where($field, $data);
+            }
         }
-        //return [];
+
+        return $query->paginate(5);
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlanetsGravity() : array
+    {
+        /** @var Collection $gravities */
+        $gravities = Planet::select('gravity')->distinct()->get();
+        return $gravities->toArray();
     }
 
     /**

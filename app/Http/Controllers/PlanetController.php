@@ -19,19 +19,22 @@ class PlanetController extends Controller
      */
     public function show(Request $request): View
     {
-        $validated = $request->validate([
-            'diameter' => 'nullable|float',
-            'rotation_period' => 'nullable|float',
-            'gravity' => 'nullable|float',
+        $validatedFields = $request->validate([
+            'diameter' => 'nullable|numeric',
+            'rotation_period' => 'nullable|numeric',
+            'gravity' => 'nullable|string',
             'page' => 'nullable|int',
         ]);
 
-        dump($request);
-        dump($validated);
+        if (array_key_exists('gravity', $validatedFields)) {
+            $validatedFields['gravity'] = htmlspecialchars($validatedFields['gravity']);
+        }
 
         return view('planetspage', [
             'planetsCount' => $this->planetsRepository->getPlanetCounts(),
-            'planets' => $this->planetsRepository->filterPlanets([], 0),
+            'gravities' => $this->planetsRepository->getPlanetsGravity(),
+            'planets' => $this->planetsRepository->filterPlanets($validatedFields, 0),
+            'fields' => $validatedFields,
         ]);
     }
 }
