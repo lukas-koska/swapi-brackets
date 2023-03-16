@@ -16,7 +16,9 @@ class PlanetController extends Controller
     }
 
     /**
-     * Show the HOMEPAGE
+     * Show the page with planets filter
+     * @param Request $request
+     * @return View
      */
     public function show(Request $request): View
     {
@@ -39,23 +41,38 @@ class PlanetController extends Controller
         ]);
     }
 
+    /**
+     * Prepare aggregated data for API endpoint
+     * Get 10 largest planets
+     * Get terrains
+     * Get species distribution for these planets
+     * @return array
+     */
     public function planetsApiResponse()
     {
+        // Prepare data
         $planets = Planet::orderBy('diameter', 'DESC')->paginate(10);
         $aggregatedData = [];
         foreach ($planets as $planet) {
             $aggregatedData[] = [
                 'name' => $planet['name'],
                 'terrain' => $this->getTerrainForPieChart($planet),
+                'species' => [],
             ];
-            dump($this->getTerrainForPieChart($planet));
         }
+
+        // Provide data
         return [
-            "status" => 1,
-            "data" => $aggregatedData
+            "status" => $planets !== null && count($planets) > 0 ? 1 : 0,
+            "data" => $aggregatedData,
         ];
     }
 
+    /**
+     * Create random terrain proportions for planets (according to assignment?)
+     * @param Planet $planet
+     * @return int[]
+     */
     private function getTerrainForPieChart(Planet $planet): array
     {
         $terrains = explode(', ', $planet['terrain']);

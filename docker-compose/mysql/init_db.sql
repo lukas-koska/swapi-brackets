@@ -33,7 +33,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
                                                           (2,	'2014_10_12_100000_create_password_resets_table',	1),
                                                           (3,	'2019_08_19_000000_create_failed_jobs_table',	1),
                                                           (4,	'2019_12_14_000001_create_personal_access_tokens_table',	1),
-                                                          (5,	'2023_03_14_081730_create_planets_table',	1);
+                                                          (5,	'2023_03_14_081730_create_planets_table',	1),
+                                                          (6,	'2023_03_16_095238_create_species_table',	2);
 
 
 CREATE TABLE IF NOT EXISTS `password_resets` (
@@ -74,6 +75,25 @@ CREATE TABLE IF NOT EXISTS `planets` (
                            `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                            `created` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                            `edited` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `created_at` timestamp NULL DEFAULT NULL,
+                           `updated_at` timestamp NULL DEFAULT NULL,
+                           PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `species` (
+                           `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                           `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `average_height` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `average_lifespan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `classification` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `created` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `edited` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `eye_colors` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `hair_colors` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `skin_colors` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                            `created_at` timestamp NULL DEFAULT NULL,
                            `updated_at` timestamp NULL DEFAULT NULL,
                            PRIMARY KEY (`id`)

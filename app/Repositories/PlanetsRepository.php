@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Planet;
+use App\Services\SwapiApiService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
@@ -12,6 +13,14 @@ use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
  */
 class PlanetsRepository extends BaseRepository
 {
+
+    public function __construct(
+        protected SpeciesRepository $speciesRepository,
+        protected SwapiApiService $swapiApiService
+    ) {
+        parent::__construct();
+    }
+
     /**
      * @return string
      *  Return the model
@@ -20,7 +29,6 @@ class PlanetsRepository extends BaseRepository
     {
         return Planet::class;
     }
-
 
     public function getPlanetCounts() : int
     {
@@ -68,7 +76,7 @@ class PlanetsRepository extends BaseRepository
             foreach ($planetsArrayChunk as $planetArray) {
 
                 // Get Planet names
-                $names = array_column($planetsArray, 'name');
+                $names = array_column($planetsArrayChunk, 'name');
                 // Find existing ids for names
                 $existingNames = $this->getIdFromName($names);
 
@@ -85,6 +93,9 @@ class PlanetsRepository extends BaseRepository
                     $planetCount++;
 
                 }
+                // Get species for planet (This implementation needs to be changed, if there are millions of planets)
+                $this->saveSpeciesForPlanet($planet, $planetArray['residents']);
+
                 $namesInDatabase[] = $planet['name'];
             }
 
@@ -105,5 +116,23 @@ class PlanetsRepository extends BaseRepository
     {
         $existingNames = Planet::whereIn('name', $names)->pluck('id', 'name')->all();
         return $existingNames ?? [];
+    }
+
+    private function saveSpeciesForPlanet(Planet $planet, array $residents)
+    {
+        foreach ($residents as $resident) {
+            $response = $this->swapiApiService->receiveData($resident, 'GET');
+            if ($response->status() < 400) {
+                $contentArray = json_decode($response->body(), true);
+                if (array_key_exists('species', $contentArray)) {
+                    foreach ($contentArray['species'] as $species) {
+                        $speciesResponse = $this->swapiApiService->receiveData($species, 'GET');
+                        if ($speciesResponse->status() === 200) {
+                            $this->speciesRepository->saveSpecies(json_decode($speciesResponse->body(), true));
+                        }
+                    }
+                }
+            }
+        }
     }
 }
