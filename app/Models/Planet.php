@@ -20,13 +20,13 @@ class Planet extends Model
     protected $fillable = [
         'name',
         'diameter',
-        'rotationperiod',
-        'orbitalperiod',
+        'rotation_period',
+        'orbital_period',
         'gravity',
         'population',
         'climate',
         'terrain',
-        'surfaceWater',
+        'surface_water',
         'url',
         'created',
         'edited'
