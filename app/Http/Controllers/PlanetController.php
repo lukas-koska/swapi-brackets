@@ -10,7 +10,8 @@ use Illuminate\View\View;
 class PlanetController extends Controller
 {
     public function __construct(
-        protected PlanetsRepository $planetsRepository
+        protected PlanetsRepository $planetsRepository,
+        protected PlanetSpeciesController $planetSpeciesController,
     ) {
         // Nothing have to be done here
     }
@@ -57,7 +58,7 @@ class PlanetController extends Controller
             $aggregatedData[] = [
                 'name' => $planet['name'],
                 'terrain' => $this->getTerrainForPieChart($planet),
-                'species' => [],
+                'species' => $this->planetSpeciesController->getSpeciesForPlanets($planet),
             ];
         }
 

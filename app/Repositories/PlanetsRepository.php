@@ -16,6 +16,7 @@ class PlanetsRepository extends BaseRepository
 
     public function __construct(
         protected SpeciesRepository $speciesRepository,
+        protected PlanetSpeciesRepository $planetSpeciesRepository,
         protected SwapiApiService $swapiApiService
     ) {
         parent::__construct();
@@ -118,8 +119,17 @@ class PlanetsRepository extends BaseRepository
         return $existingNames ?? [];
     }
 
+    /**
+     * Sync species and people lived on the planet
+     * I think that this funcionality should be in service as second command
+     * There is too many calls to API, so better way would be load all peoples, species
+     * and sync only people lived on planet
+     * @param Planet $planet
+     * @param array $residents
+     */
     private function saveSpeciesForPlanet(Planet $planet, array $residents)
     {
+        $speciesDistribution = [];
         foreach ($residents as $resident) {
             $response = $this->swapiApiService->receiveData($resident, 'GET');
             if ($response->status() < 400) {
@@ -128,11 +138,17 @@ class PlanetsRepository extends BaseRepository
                     foreach ($contentArray['species'] as $species) {
                         $speciesResponse = $this->swapiApiService->receiveData($species, 'GET');
                         if ($speciesResponse->status() === 200) {
-                            $this->speciesRepository->saveSpecies(json_decode($speciesResponse->body(), true));
+                            $speciesId = $this->speciesRepository->saveSpecies(json_decode($speciesResponse->body(), true));
+                            if (array_key_exists($speciesId, $speciesDistribution)) {
+                                $speciesDistribution[$speciesId]++;
+                            } else {
+                                $speciesDistribution[$speciesId] = 1;
+                            }
                         }
                     }
                 }
             }
         }
+        $this->planetSpeciesRepository->savePlanetSpecies($speciesDistribution, $planet);
     }
 }

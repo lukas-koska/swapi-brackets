@@ -34,7 +34,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
                                                           (3,	'2019_08_19_000000_create_failed_jobs_table',	1),
                                                           (4,	'2019_12_14_000001_create_personal_access_tokens_table',	1),
                                                           (5,	'2023_03_14_081730_create_planets_table',	1),
-                                                          (6,	'2023_03_16_095238_create_species_table',	2);
+                                                          (6,	'2023_03_16_095238_create_species_table',	2),
+                                                          (7,	'2023_03_16_105507_create_planet_species_table',	3);
 
 
 CREATE TABLE IF NOT EXISTS `password_resets` (
@@ -97,6 +98,20 @@ CREATE TABLE IF NOT EXISTS `species` (
                            `created_at` timestamp NULL DEFAULT NULL,
                            `updated_at` timestamp NULL DEFAULT NULL,
                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `planet_species` (
+                                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                                  `planet_id` int(10) unsigned NOT NULL,
+                                  `species_id` bigint(20) unsigned NOT NULL,
+                                  `number_of_people` int(10) unsigned NOT NULL DEFAULT 0,
+                                  `created_at` timestamp NULL DEFAULT NULL,
+                                  `updated_at` timestamp NULL DEFAULT NULL,
+                                  PRIMARY KEY (`id`),
+                                  KEY `planet_species_planet_id_foreign` (`planet_id`),
+                                  KEY `planet_species_species_id_foreign` (`species_id`),
+                                  CONSTRAINT `planet_species_planet_id_foreign` FOREIGN KEY (`planet_id`) REFERENCES `planets` (`id`),
+                                  CONSTRAINT `planet_species_species_id_foreign` FOREIGN KEY (`species_id`) REFERENCES `species` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `users` (
