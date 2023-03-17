@@ -35,7 +35,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
                                                           (4,	'2019_12_14_000001_create_personal_access_tokens_table',	1),
                                                           (5,	'2023_03_14_081730_create_planets_table',	1),
                                                           (6,	'2023_03_16_095238_create_species_table',	2),
-                                                          (7,	'2023_03_16_105507_create_planet_species_table',	3);
+                                                          (7,	'2023_03_16_105507_create_planet_species_table',	3),
+                                                          (8,	'2023_03_16_195000_create_user_logs_table',	4);
 
 
 CREATE TABLE IF NOT EXISTS `password_resets` (
@@ -125,6 +126,17 @@ CREATE TABLE IF NOT EXISTS `users` (
                          `updated_at` timestamp NULL DEFAULT NULL,
                          PRIMARY KEY (`id`),
                          UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `user_logs` (
+                             `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                             `mood` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                             `weather` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                             `gps` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                             `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                             `created_at` timestamp NULL DEFAULT NULL,
+                             `updated_at` timestamp NULL DEFAULT NULL,
+                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 

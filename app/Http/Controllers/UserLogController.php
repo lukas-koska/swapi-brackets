@@ -4,10 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserLogRequest;
 use App\Models\UserLog;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\View\View;
 
 class UserLogController extends Controller
 {
+
+    protected const ENCRYPTED_FIELDS = [
+        "mood",
+        "weather",
+        "gps",
+        "note",
+    ];
+
+    /**
+     * Show the page with planets filter
+     * @return View
+     */
+    public function show(): View
+    {
+        return view('logpage', [
+            'logs' => $this->getReadableLog(),
+        ]);
+    }
+
+    protected function getReadableLog() : array
+    {
+        $logs = UserLog::orderBy('created_at', 'DESC')->get()->toArray();
+        foreach ($logs as $key => $log) {
+            foreach ($log as $field => $item) {
+                if (in_array($field, UserLogController::ENCRYPTED_FIELDS)) {
+                    $log[$field] = Crypt::decryptString($item);
+                }
+            }
+            $logs[$key] = $log;
+        }
+        return $logs;
+    }
 
     /**
      * @param UserLogRequest $request

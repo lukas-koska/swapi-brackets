@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PlanetController;
+use App\Http\Controllers\UserLogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,7 @@ Route::prefix('{language}')
     ->group(function () {
         Route::get('/', [HomepageController::class, 'show']);
         Route::get('/planets', [PlanetController::class, 'show']);
+        Route::get('/log', [UserLogController::class, 'show']);
     });
 
 Route::get('/', function () {

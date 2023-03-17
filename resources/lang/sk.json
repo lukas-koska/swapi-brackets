@@ -13,5 +13,12 @@
   "population": "Population",
   "climate": "Climate",
   "terrain": "Terrain",
-  "surface.water": "Surface water"
+  "surface.water": "Surface water",
+  "title.log": "User logbook",
+  "log.progress": "Progress",
+  "log.mood": "Mood",
+  "log.weather": "Weather",
+  "log.gps": "Location",
+  "log.note": "Note",
+  "log.created_at": "Created at"
 }
