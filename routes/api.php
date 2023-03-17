@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PlanetController;
+use App\Http\Controllers\UserLogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/planets', [PlanetController::class, 'planetsApiResponse']);
+
+Route::post('/log', [UserLogController::class, 'saveUserLog']);

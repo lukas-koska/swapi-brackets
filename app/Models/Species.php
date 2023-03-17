@@ -34,7 +34,7 @@ class Species extends Model
 
     /**
      * Define model fields
-     * @var array
+     * @var array<string, array<string|int>>
      */
     public array $fields = [
         'name' => [

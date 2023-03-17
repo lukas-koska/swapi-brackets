@@ -47,9 +47,9 @@ class PlanetController extends Controller
      * Get 10 largest planets
      * Get terrains
      * Get species distribution for these planets
-     * @return array
+     * @return array<string, array<int, array<string, mixed>>|int>
      */
-    public function planetsApiResponse()
+    public function planetsApiResponse() : array|int
     {
         // Prepare data
         $planets = Planet::orderBy('diameter', 'DESC')->paginate(10);
@@ -64,7 +64,7 @@ class PlanetController extends Controller
 
         // Provide data
         return [
-            "status" => $planets !== null && count($planets) > 0 ? 1 : 0,
+            "status" => $planets !== null && $planets->count() > 0 ? 1 : 0,
             "data" => $aggregatedData,
         ];
     }
@@ -72,7 +72,7 @@ class PlanetController extends Controller
     /**
      * Create random terrain proportions for planets (according to assignment?)
      * @param Planet $planet
-     * @return int[]
+     * @return array<string, float|int>
      */
     private function getTerrainForPieChart(Planet $planet): array
     {
@@ -86,7 +86,7 @@ class PlanetController extends Controller
                 $pieChartArray[$terrain] = 1 - array_sum($pieChartArray);
                 break;
             }
-            $pieChartArray[$terrain] = round(rand(1, 99 - (array_sum($pieChartArray) * 100)) / 100, 2);
+            $pieChartArray[$terrain] = round(rand(1, (int)round(99 - (array_sum($pieChartArray) * 100))) / 100, 2);
         }
 
         return $pieChartArray;

@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Planet;
 use App\Services\SwapiApiService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 
 /**
@@ -33,11 +33,11 @@ class PlanetsRepository extends BaseRepository
 
     public function getPlanetCounts() : int
     {
-        return Planet::all()->count();
+        return Planet::count();
     }
 
     /**
-     * @param array|null $filter
+     * @param array<string>|null $filter
      * @param int $page
      * @return LengthAwarePaginator
      */
@@ -55,7 +55,7 @@ class PlanetsRepository extends BaseRepository
     }
 
     /**
-     * @return array
+     * @return array<string>
      */
     public function getPlanetsGravity() : array
     {
@@ -65,7 +65,7 @@ class PlanetsRepository extends BaseRepository
     }
 
     /**
-     * @param array $planetsArray
+     * @param array<mixed> $planetsArray
      * @return bool
      */
     public function syncPlanets(array $planetsArray) : bool
@@ -115,8 +115,7 @@ class PlanetsRepository extends BaseRepository
      */
     private function getIdFromName(array $names) : array
     {
-        $existingNames = Planet::whereIn('name', $names)->pluck('id', 'name')->all();
-        return $existingNames ?? [];
+        return Planet::whereIn('name', $names)->pluck('id', 'name')->all();
     }
 
     /**
@@ -125,9 +124,9 @@ class PlanetsRepository extends BaseRepository
      * There is too many calls to API, so better way would be load all peoples, species
      * and sync only people lived on planet
      * @param Planet $planet
-     * @param array $residents
+     * @param array<string> $residents
      */
-    private function saveSpeciesForPlanet(Planet $planet, array $residents)
+    private function saveSpeciesForPlanet(Planet $planet, array $residents) : void
     {
         $speciesDistribution = [];
         foreach ($residents as $resident) {

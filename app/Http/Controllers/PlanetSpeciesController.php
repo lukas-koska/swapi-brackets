@@ -13,6 +13,10 @@ class PlanetSpeciesController extends Controller
         // Nothing have to be done here
     }
 
+    /**
+     * @param Planet $planet
+     * @return array<int, array<string, mixed>>
+     */
     public function getSpeciesForPlanets(Planet $planet): array
     {
         $speciesForPlanet = [];

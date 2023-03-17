@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\PlanetsRepository;
-use Illuminate\View\View;
+use Illuminate\View\View as View;
 
 class HomepageController extends Controller
 {
@@ -19,7 +19,7 @@ class HomepageController extends Controller
     /**
      * Show the HOMEPAGE
      */
-    public function show(): View
+    public function show(): view
     {
         return view('homepage', [
             'planetsCount' => $this->planetsRepository->getPlanetCounts()

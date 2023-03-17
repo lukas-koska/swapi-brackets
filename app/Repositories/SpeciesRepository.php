@@ -22,9 +22,12 @@ class SpeciesRepository extends BaseRepository
 
     public function getPlanetCounts() : int
     {
-        return Species::all()->count();
+        return Species::count();
     }
 
+    /**
+     * @param array<string> $speciesArray
+     */
     public function saveSpecies(array $speciesArray): int
     {
         // Get Species names

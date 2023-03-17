@@ -25,9 +25,14 @@ class PlanetSpeciesRepository extends BaseRepository
 
     public function getPlanetSpeciesCounts() : int
     {
-        return PlanetSpecies::all()->count();
+        return PlanetSpecies::count();
     }
 
+    /**
+     * @param array<int, int<1, max>> $planetSpeciesArray
+     * @param Planet $planet
+     * @return bool
+     */
     public function savePlanetSpecies(array $planetSpeciesArray, Planet $planet): bool
     {
         try {
@@ -38,6 +43,7 @@ class PlanetSpeciesRepository extends BaseRepository
                 $planetSpecies['number_of_people'] = $count;
                 $planetSpecies->save();
             }
+            return true;
         } catch (\Exception $ex) { }
         return false;
     }
