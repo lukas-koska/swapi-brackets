@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserLogRequest;
 use App\Models\UserLog;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\View\View;
 
@@ -30,6 +28,9 @@ class UserLogController extends Controller
         ]);
     }
 
+    /**
+     * @return array<string>
+     */
     protected function getReadableLog() : array
     {
         $logs = UserLog::orderBy('created_at', 'DESC')->get()->toArray();
