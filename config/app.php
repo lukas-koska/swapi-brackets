@@ -233,8 +233,7 @@ return [
     ],
 
     'available_languages' => [
-        'sk',   // main web language
-        'hu',
+        'en',   // main web language
     ],
 
 ];

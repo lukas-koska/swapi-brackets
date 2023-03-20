@@ -34,10 +34,16 @@ class PlanetController extends Controller
             $validatedFields['gravity'] = htmlspecialchars($validatedFields['gravity']);
         }
 
+        $page = 0;
+        if (array_key_exists('page', $validatedFields)) {
+            $page = $validatedFields['page'];
+            unset($validatedFields['page']);
+        }
+
         return view('planetspage', [
             'planetsCount' => $this->planetsRepository->getPlanetCounts(),
             'gravities' => $this->planetsRepository->getPlanetsGravity(),
-            'planets' => $this->planetsRepository->filterPlanets($validatedFields, 0),
+            'planets' => $this->planetsRepository->filterPlanets($validatedFields, $page),
             'fields' => $validatedFields,
         ]);
     }
@@ -54,7 +60,7 @@ class PlanetController extends Controller
         // Prepare data
         $planets = Planet::orderBy('diameter', 'DESC')->paginate(10);
         $aggregatedData = [];
-        foreach ($planets as $planet) {
+        foreach ($planets->items() as $planet) {
             $aggregatedData[] = [
                 'name' => $planet['name'],
                 'terrain' => $this->getTerrainForPieChart($planet),

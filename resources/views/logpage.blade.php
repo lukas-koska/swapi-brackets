@@ -158,6 +158,9 @@
                         </ul>
                     </div>
                 @endforeach
+                @if ($logs === null || count($logs) === 0)
+                    {{ __('start') }}
+                @endif
             </div>
 
         </div>

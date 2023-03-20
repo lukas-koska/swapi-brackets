@@ -20,5 +20,6 @@
   "log.weather": "Weather",
   "log.gps": "Location",
   "log.note": "Note",
-  "log.created_at": "Created at"
+  "log.created_at": "Created at",
+  "start": "You are at the start"
 }

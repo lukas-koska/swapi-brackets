@@ -116,6 +116,20 @@
                 color: #A8DADC;
                 font-weight: 200;
             }
+
+            .pager {
+                text-align: center;
+            }
+            .pager a {
+                color: #1D3557;
+                text-decoration: none;
+            }
+            .pager a:hover {
+                text-decoration: underline;
+            }
+            .pager svg {
+                max-width: 40px;
+            }
         </style>
     </head>
     <body>
@@ -215,6 +229,10 @@
                         </ul>
                     </div>
                 @endforeach
+            </div>
+
+            <div @class(['col-12', 'pager'])>
+                {{ $planets->links() }}
             </div>
 
             @if ($errors->any())
