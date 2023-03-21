@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.5",
         "laracasts/generators": "2.0.1",
         "jason-guru/laravel-make-repository": "^0.0.3",
-        "nuwave/lighthouse": "^5.71.0"
+        "nuwave/lighthouse": "^5.71.0",
+        "laravel/ui": "^3.4.6"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.8",

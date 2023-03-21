@@ -22,7 +22,7 @@ class HomepageController extends Controller
     public function show(): view
     {
         return view('homepage', [
-            'planetsCount' => $this->planetsRepository->getPlanetCounts()
+            'planetsCount' => 0,
         ]);
     }
 }
