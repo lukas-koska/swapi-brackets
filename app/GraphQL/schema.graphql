@@ -3,14 +3,17 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 
 "Indicates what fields are available at the top level of a query operation."
 type Query {
+    hello: String!
     planet(id: ID! @eq): Planet @find
     planets: [Planet!]! @all
-    aggregatedPlanets: [Planet!]! @field(resolver: "PlanetResolver@resolve")
+    aggregatedPlanets: [AggregatePlanet]! @field(resolver: "PlanetResolver@resolve")
 }
 
 "Planet."
-type Planet {
+type Planet @model {
     id: ID!
+
+    name: String!
 
     diameter: String!
 
@@ -25,4 +28,9 @@ type Planet {
     created_at: DateTime!
 
     updated_at: DateTime!
+}
+
+"Aggregate info about planets."
+type AggregatePlanet @model {
+    name: String!
 }
