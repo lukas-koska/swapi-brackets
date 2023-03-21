@@ -22,3 +22,7 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 .idea
+
+_lighthouse_ide_helper.php
+programmatic-types.graphql
+schema-directives.graphql

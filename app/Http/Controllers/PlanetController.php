@@ -53,9 +53,23 @@ class PlanetController extends Controller
      * Get 10 largest planets
      * Get terrains
      * Get species distribution for these planets
-     * @return array<string, array<int, array<string, mixed>>|int>
+     * @return array<string, array<int, array<string, mixed>>|int>|int
      */
     public function planetsApiResponse() : array|int
+    {
+
+        $aggregatedData = $this->getAggregatedData();
+        // Provide data
+        return [
+            "status" => count($aggregatedData) > 0 ? 1 : 0,
+            "data" => $aggregatedData,
+        ];
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function getAggregatedData() : array
     {
         // Prepare data
         $planets = Planet::orderBy('diameter', 'DESC')->paginate(10);
@@ -68,11 +82,7 @@ class PlanetController extends Controller
             ];
         }
 
-        // Provide data
-        return [
-            "status" => $planets !== null && $planets->count() > 0 ? 1 : 0,
-            "data" => $aggregatedData,
-        ];
+        return $aggregatedData;
     }
 
     /**

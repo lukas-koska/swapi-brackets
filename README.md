@@ -17,6 +17,10 @@ Available routes:
 /en/logs
 ```
 
+## GraphQL
+
+GraphQL API is available at endpoint\
+/graphql
 
 ## Synchronize the list of all planets
 
