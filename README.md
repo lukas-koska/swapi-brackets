@@ -17,11 +17,6 @@ Available routes:
 /en/logs
 ```
 
-## GraphQL
-
-GraphQL API is available at endpoint\
-/graphql
-
 ## Synchronize the list of all planets
 
 Run command to initialize list of planets
@@ -33,18 +28,6 @@ php artisan syncPlanets:sync
 This command prints number of added planets. 
 Synchronize of the planets needs to be updated and improved for another planet exploration.
 
-## Store user progress
-
-For store user progress in hostile environment use API endpoint\
-POST /api/log
-
-Parameters:
-```bash
-mood: string
-weather: string
-gps: string
-note: string
-```
 
 ## PHPStan
 
@@ -52,12 +35,4 @@ Run following command
 
 ```bash
 vendor/bin/phpstan analyse -c .phpstan/config.neon --memory-limit 1G
-```
-
-## Tests
-
-Run following command
-
-```bash
-php artisan test
 ```
