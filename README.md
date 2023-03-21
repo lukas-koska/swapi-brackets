@@ -22,6 +22,12 @@ Available routes:
 GraphQL API is available at endpoint\
 /graphql
 
+Example GET request:
+
+```bash
+/graphql?query={aggregatedPlanets{name, terrain, species{species_name}}}
+```
+
 ## Synchronize the list of all planets
 
 Run command to initialize list of planets

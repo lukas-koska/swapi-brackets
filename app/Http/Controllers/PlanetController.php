@@ -69,7 +69,7 @@ class PlanetController extends Controller
     /**
      * @return array<int, array<string, mixed>>
      */
-    public function getAggregatedData() : array
+    public function getAggregatedData($json = false) : array
     {
         // Prepare data
         $planets = Planet::orderBy('diameter', 'DESC')->paginate(10);
@@ -77,7 +77,7 @@ class PlanetController extends Controller
         foreach ($planets->items() as $planet) {
             $aggregatedData[] = [
                 'name' => $planet['name'],
-                'terrain' => $this->getTerrainForPieChart($planet),
+                'terrain' => $json ? json_encode($this->getTerrainForPieChart($planet)) : $this->getTerrainForPieChart($planet),
                 'species' => $this->planetSpeciesController->getSpeciesForPlanets($planet),
             ];
         }
@@ -94,10 +94,12 @@ class PlanetController extends Controller
     {
         $terrains = explode(', ', $planet['terrain']);
         if (count($terrains) === 1) {
+            $terrains[0] = str_replace(' ', '_', $terrains[0]);
             return [$terrains[0] => 1];
         }
         $pieChartArray = [];
         foreach ($terrains as $key => $terrain) {
+            $terrain = str_replace(' ', '_', $terrain);
             if ($key === count($terrains) - 1) {
                 $pieChartArray[$terrain] = 1 - array_sum($pieChartArray);
                 break;

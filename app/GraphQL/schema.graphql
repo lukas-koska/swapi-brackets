@@ -33,4 +33,15 @@ type Planet @model {
 "Aggregate info about planets."
 type AggregatePlanet @model {
     name: String!
+
+    terrain: String
+
+    species: [Species]
+}
+
+type Species {
+    species_id: String
+    number_of_people: String
+    species_name: String
+    species_classification: String
 }

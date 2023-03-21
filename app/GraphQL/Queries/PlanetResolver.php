@@ -29,6 +29,6 @@ class PlanetResolver
 
         $planetController = new PlanetController($planetRepository, $planeSpeciesController);
 
-        return $planetController->getAggregatedData();
+        return $planetController->getAggregatedData(true);
     }
 }
