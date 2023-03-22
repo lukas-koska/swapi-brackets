@@ -62,16 +62,6 @@ services:
     networks:
       - lukybrackets
 
-  npm:
-    image: node:current-alpine
-    user: ${UID}:${UID}
-    working_dir: /home/node/app
-    volumes:
-      - ./:/home/node/app
-    environment:
-      NODE_ENV: development
-    command: sh -c "npm install && npm run dev"
-
 networks:
   lukybrackets:
     driver: bridge

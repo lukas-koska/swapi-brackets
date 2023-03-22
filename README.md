@@ -1,21 +1,23 @@
 <p align="center"><a href="https://meetbrackets.com" target="_blank"><img src="https://meetbrackets.com/images/logo.svg" width="400"></a></p>
 
 
-## Setting up project (Planets explorer)
+## Setting up project (AllianceBook)
 
-Run via Docker
+Run Docker
 ```bash
 docker-compose up -d
 ```
 This command creates and runs docker images necessary for the project\
 If the dependencies are not install automatically, you need to install them via composer.\\
 
-Available routes:
-
+For VUE application run following commands
 ```bash
-/en/planets
-/en/logs
+cd client
+npm install
+npm run serve
 ```
+
+VUE app is preconfigured for working with laravel application
 
 ## Synchronize the list of all planets
 

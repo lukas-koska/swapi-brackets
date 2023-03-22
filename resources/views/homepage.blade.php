@@ -11,6 +11,14 @@
 
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="https://kit.fontawesome.com/2776f5b3c6.js" crossorigin="anonymous"></script>
+        <link
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+            rel="stylesheet"
+        />
     </head>
     <body @class('homepage')>
 
