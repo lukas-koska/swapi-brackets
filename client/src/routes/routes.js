@@ -29,7 +29,7 @@ const routes = [
       },
       {
         path: 'table-list',
-        name: 'Table List',
+        name: 'Character List',
         component: TableList
       },
       {
@@ -46,11 +46,6 @@ const routes = [
         path: 'notifications',
         name: 'Notifications',
         component: Notifications
-      },
-      {
-        path: 'upgrade',
-        name: 'Upgrade to PRO',
-        component: Upgrade
       }
     ]
   },

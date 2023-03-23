@@ -1,6 +1,5 @@
 <p align="center"><a href="https://meetbrackets.com" target="_blank"><img src="https://meetbrackets.com/images/logo.svg" width="400"></a></p>
 
-
 ## Setting up project (AllianceBook)
 
 Run Docker
@@ -19,16 +18,8 @@ npm run serve
 
 VUE app is preconfigured for working with laravel application
 
-## Synchronize the list of all planets
+## Unfortunately, the assignment could not be completed
 
-Run command to initialize list of planets
-
-```bash
-php artisan syncPlanets:sync
-```
-
-This command prints number of added planets. 
-Synchronize of the planets needs to be updated and improved for another planet exploration.
 
 
 ## PHPStan
