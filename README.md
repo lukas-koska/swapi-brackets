@@ -7,7 +7,7 @@ Run Docker
 docker-compose up -d
 ```
 This command creates and runs docker images necessary for the project\
-If the dependencies are not install automatically, you need to install them via composer.\\
+If the dependencies are not installed automatically, you need to install them via composer.\\
 
 For VUE application run following commands
 ```bash
