@@ -20,7 +20,8 @@ VUE app is preconfigured for working with laravel application
 
 ## Unfortunately, the assignment could not be completed
 
-
+- Pagination
+- Animations
 
 ## PHPStan
 

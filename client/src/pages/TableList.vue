@@ -8,11 +8,18 @@
           >
             <template slot="header">
               <h4 class="card-title">Star Wars peoples</h4>
+              <Transition>
+                <span class="badge badge-secondary" v-if="this.loading">Loading</span>
+              </Transition>
               <p class="card-category"></p>
             </template>
-            <l-table class="table-hover table-striped"
-                     :columns="table1.columns"
-                     :data="table1.data">
+            <l-table
+                class="table-hover table-striped"
+                :columns="table1.columns"
+                :data="table1.data"
+                :filtered-data="table1.filteredData"
+                ref="table"
+            >
             </l-table>
           </card>
 
@@ -55,7 +62,9 @@
       api
           .get('/people')
           .then(function(response) {
-            self.table1.data = this.getPeopleData(response.data);
+            let data = self.getPeopleData(response.data);
+            self.table1.data = data;
+            self.table1.filteredData = data;
           })
           .catch(error => {
             console.log(error)
@@ -86,4 +95,20 @@
   }
 </script>
 <style>
+  .badge.badge-secondary {
+    display: inline-block;
+    margin-left: 20px;
+    padding: 8px 16px;
+    transition: all 500ms ease-in-out;
+  }
+
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
+  }
 </style>

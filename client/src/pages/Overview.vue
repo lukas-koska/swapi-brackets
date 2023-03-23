@@ -64,7 +64,8 @@
             fullWidth: true,
             chartPadding: {
               right: 50
-            }
+            },
+            loading: true,
           },
           responsiveOptions: [
             ['screen and (max-width: 640px)', {
@@ -109,6 +110,7 @@
           .then(function(response) {
             self.lineChart.data.labels = self.getPeopleNames(response.data);
             self.lineChart.data.series = self.getPeopleData(response.data);
+            self.lineChart.options.loading = false;
             self.$refs.chart.initChart();
           })
           .catch(error => {

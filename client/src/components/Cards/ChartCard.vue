@@ -2,6 +2,9 @@
   <div class="card">
     <div class="card-header" v-if="$slots.header">
       <slot name="header"></slot>
+      <Transition>
+        <span class="badge badge-secondary" v-if="this.chartOptions.loading">Loading</span>
+      </Transition>
     </div>
     <div class="card-body">
       <div :id="chartId" class="ct-chart"></div>
@@ -133,5 +136,24 @@
   }
 </script>
 <style>
+  .card-title {
+    display: inline-block;
+  }
 
+  .badge.badge-secondary {
+    display: inline-block;
+    margin-left: 20px;
+    padding: 8px 16px;
+    transition: all 500ms ease-in-out;
+  }
+
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
+  }
 </style>

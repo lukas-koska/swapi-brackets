@@ -11,7 +11,7 @@
       </slot>
     </thead>
     <tbody>
-    <tr v-for="(item, index) in filteredData" :key="index">
+    <tr v-for="(item, index) in this.filteredData" :key="index">
       <slot :row="item">
         <td v-for="column in columns" :key="column" v-if="hasValue(item, column)">
           {{ column !== 'Avatar' ? itemValue(item, column) : ''}}
@@ -32,9 +32,19 @@
     },
     data () {
       return {
-        filterName: undefined
+        filterName: ''
       }
     },
+
+    watch: {
+      filterName: function(val, oldVal) {
+        if (val === oldVal) {
+          return;
+        }
+        this.filterNames(val, oldVal);
+      }
+    },
+
     methods: {
       hasValue (item, column) {
         return item[column.toLowerCase()] !== 'undefined';
@@ -44,17 +54,14 @@
           return '<img alt="' + item['name'] + '" src="https://starwars-visualguide.com/assets/img/characters/' + item['id'] + '.jpg">';
         }
         return item[column.toLowerCase()]
-      }
-    },
-    watch: {
-
-      filterName: function(val, oldVal) {
-        if (val === undefined || val.length === 0) {
+      },
+      filterNames (val, oldVal) {
+        if (val === undefined || val === null || val.length === 0) {
           this.filteredData = this.data;
           return;
         }
-        window.console.log(val, oldVal);
         this.filteredData = [];
+        window.console.log(val, oldVal);
         let self = this;
 
         this.data.forEach(function (value) {
@@ -64,10 +71,9 @@
             self.filteredData.push(value);
           }
         });
+      },
+    },
 
-      }
-
-    }
   }
 </script>
 <style>
